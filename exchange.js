@@ -2,8 +2,6 @@ const ExchangeModel = require("../../models/ExchangeModel");
 const MarketModel = require("../../models/MarketModel");
 const GridOrdersModel = require('../../models/GridOrdersModel');
 
-
-
 const ccxt = require("../ccxt/ccxt");
 const { create, all } = require('mathjs');
 const moment = require("moment/moment");
@@ -15,12 +13,12 @@ const config = {
 const math = create(all, config);
 
 class Exchange {
-  async function init(name) {
+  async init(name) {
     this.name = name;
     this.instance = await this.getInstance();
   };
 
-  async function  addDbExchange(exchange, apiKeys, defaultMarket){
+  async addDbExchange(exchange, apiKeys, defaultMarket){
     let dbInstance = new ExchangeModel({
       exchange,
       apiKeys,
@@ -50,37 +48,37 @@ class Exchange {
     }
   };
 
-  async function getDbExchanges(){
+  async getDbExchanges(){
     return ExchangeModel.find({});
   };
 
-  async function getDbMarkets(id){
+  async getDbMarkets(id){
     return MarketModel.find({exchangeID:id});
   };
 
-  async function deleteDbExchange(id){
+  async deleteDbExchange(id){
     await ExchangeModel.findByIdAndDelete(id);
     await MarketModel.deleteMany({exchangeId:id});
   };
 
-  async function editDbExchange(exchange){
+  async editDbExchange(exchange){
     return ExchangeModel.findOne({exchange});
   };
 
-  async function updateDbExchange(exchange, apiKeys, defaultMarket){
+  async updateDbExchange(exchange, apiKeys, defaultMarket){
     await ExchangeModel.updateOne({ exchange }, { apiKeys, defaultMarket });
   };
 
-  async function  changeTerminalSymbol(exchange, symbol){
+  async changeTerminalSymbol(exchange, symbol){
     await ExchangeModel.updateOne({ exchange }, { defaultMarket:symbol });
   };
 
-  async function changeTerminalExchange(exchange){
+  async changeTerminalExchange(exchange){
     await ExchangeModel.updateMany({}, { isActive:false });
     await ExchangeModel.updateOne({ exchange:exchange }, { isActive:true });
   };
 
-  async function  getInstance() {
+  async getInstance() {
     let keys = await this.getApiKey(this.name);
     let instance = await new ccxt[this.name] (keys);
     await instance.loadMarkets();
@@ -88,7 +86,7 @@ class Exchange {
     return instance;
   };
 
-  async function getApiKey(exchange) {
+  async getApiKey(exchange) {
     let returnObj = [];
     let exchangeData = await ExchangeModel.findOne({
       exchange: exchange
@@ -104,7 +102,7 @@ class Exchange {
     }
   };
 
-  async function  createOrder(symbol, type, side, amount, price, params = {}) {
+  async createOrder(symbol, type, side, amount, price, params = {}) {
     let log = null;
     let order = null;
     let success = null;
@@ -163,7 +161,7 @@ class Exchange {
     };
   };
 
-  async function cancelOrder(id, symbol){
+  async cancelOrder(id, symbol){
     let log = null;
     let order = null;
     let success = null;
@@ -190,7 +188,7 @@ class Exchange {
     };
   };
 
-  async function fetchOrder(id, symbol){
+  async fetchOrder(id, symbol){
     let log = null;
     let order = null;
     let success = null;
@@ -217,7 +215,7 @@ class Exchange {
     };
   };
 
-  async function fetchOpenOrders(symbol){
+  async fetchOpenOrders(symbol){
     let log = null;
     let orders = null;
     let success = null;
@@ -244,7 +242,7 @@ class Exchange {
     };
   };
 
-  async function fetchClosedOrders(symbol){
+  async fetchClosedOrders(symbol){
     let log = null;
     let orders = null;
     let success = null;
@@ -271,7 +269,7 @@ class Exchange {
     };
   };
 
-  async function  fetchOrderBook(symbol) {
+  async fetchOrderBook(symbol) {
     let log = null;
     let orderBook = null;
     let success = null;
@@ -298,7 +296,7 @@ class Exchange {
     };
   };
 
-  async function fetchTicker(symbol) {
+  async fetchTicker(symbol) {
     let log = null;
     let ticker = null;
     let success = null;
@@ -325,7 +323,7 @@ class Exchange {
     };
   };
 
-  async function fetchOHLCV(symbol, timeframe) {
+  async fetchOHLCV(symbol, timeframe) {
     let log = null;
     let ohlcv = null;
     let success = null;
@@ -352,7 +350,7 @@ class Exchange {
     };
   };
 
-  async function fetchMarkets() {
+  async fetchMarkets() {
     let log = null;
     let markets = null;
     let success = null;
@@ -379,7 +377,7 @@ class Exchange {
     };
   };
 
-  async function fetchMarketsNoKey(exchange) {
+  async fetchMarketsNoKey(exchange) {
     let log = null;
     let markets = null;
     let success = null;
@@ -409,11 +407,11 @@ class Exchange {
     };
   };
 
-  async function fetchExchanges(){
+  async fetchExchanges(){
     return ccxt.exchanges;
   };
 
-  async function fetchBalance() {
+  async fetchBalance() {
     let log = null;
     let balance = null;
     let success = null;
@@ -440,7 +438,7 @@ class Exchange {
     };
   };
 
-  async function setLeverage(leverage, symbol){
+  async setLeverage(leverage, symbol){
     let log = null;
     let success = null;
     try {
@@ -462,47 +460,11 @@ class Exchange {
     };
   };
 
-
-
-
-  async function updateGrid(grid, price, side) {
-    let newPrice = price;
-    let newSide = side;
-    let newAmount = grid.amount;
-  
-    if (side === 'buy' || side === 'BUY') {
-      newPrice = math.evaluate(`${price} + ${gridWidth}`);
-      newPrice *= 1.0033;
-      newSide = 'sell';
-    }
-  
-    if (side === 'sell' || side === 'SELL') {
-      newPrice = math.evaluate(`${price} - ${gridWidth}`);
-      newPrice /= 1.0055;
-      newSide = 'buy';
-    }
-  
-    newAmount = math.evaluate(`${grid.amount} / ${newPrice}`);
-  
-    if (newSide === 'sell') {
-      newAmount *= 1.002;
-    } else if (newSide === 'buy') {
-      newAmount *= 1.0033;
-    }
-  
-    grid.price = newPrice;
-    grid.amount = newAmount;
-    grid.side = newSide;
-    return grid;
-  }
-
-
-  async function  createGridOrders(name, exchange, symbol, lowerPrice, upperPrice, amountType, amount, nrOfGrids, ordersSide, incrementalPercent,deviationPercent,newPrice,newSide,newAmount) {
+  async createGridOrders(name, exchange, symbol, lowerPrice, upperPrice, amountType, amount, nrOfGrids, ordersSide, incrementalPercent,deviationPercent) {
     let prices = [];
     let gridWidth = math.evaluate(`(${upperPrice} - ${lowerPrice}) / ${nrOfGrids}`);
     let currentPrice = lowerPrice;
     let orders = [];
-
 
     for (let i = 0; i < nrOfGrids; i++) {
       currentPrice = math.evaluate(`${currentPrice} + ${gridWidth}`);
@@ -536,7 +498,6 @@ class Exchange {
       for (let i = buyPrices.length - 1; i > 0; i--) {
         let log = null;
         let price = buyPrices[i];
-        
         quantityPerGrid = await this.getQuantityPerGrid(price, amountType, amount, nrOfGrids, incrementalPercent, localBuyIndex);
 
         let orderResponse = await this.createOrder(symbol, 'limit', 'buy', quantityPerGrid, price);
@@ -544,10 +505,6 @@ class Exchange {
         let gridtotalX = quantityPerGrid * price;
         sumX += gridtotalX;
         sum += gridtotal;
-
-
-
-        
 
         if (orderResponse.success) {
           orders.push({
@@ -644,14 +601,6 @@ class Exchange {
         sumX += gridtotalX;
         sum += gridtotal;
 
-
-
-
-
-
-
-        
-
         if (orderResponse.success) {
           orders.push({
             id:orderResponse.order.id,
@@ -726,9 +675,6 @@ class Exchange {
 
     }
 
-
-    
-
     //save to db
     const user = new GridOrdersModel({
       name,
@@ -747,7 +693,7 @@ class Exchange {
 
   };
 
-  async function getQuantityPerGrid(price, amountType, amount, nrOfGrids, incrementalPercent, index){
+  async getQuantityPerGrid(price, amountType, amount, nrOfGrids, incrementalPercent, index){
     let quantityPerGrid = null;
 
     if (amountType === 'quantityPerGrid') {
@@ -761,13 +707,15 @@ class Exchange {
     return quantityPerGrid;
   }
 
- 
+  getCurrentTime() {
+    return moment(new Date()).format('lll');
+  }
 
-  async function getGridOrders() {
+  async getGridOrders() {
     return GridOrdersModel.find({});
   }
 
-  async function deleteGridOrders(id) {
+  async deleteGridOrders(id) {
 
     let gridOrders = await GridOrdersModel.findOne({id});
 
