@@ -40,28 +40,7 @@
       </b-input-group>
     </b-form-group>
 
-    <b-form-group>
-      <b-input-group append="%">
-        <b-form-input type="number" v-model="deviationPercent" placeholder="Deviation Percent" step="any"></b-form-input>
-      </b-input-group>
-    </b-form-group>
-
-    <b-row>
-      <b-col cols="6">
-        <b-form-group>
-          <b-input-group append="Buy">
-            <b-form-input type="number" v-model="deviationPRICEBuy" placeholder="Deviation PRICE " step="any"></b-form-input>
-          </b-input-group>
-        </b-form-group>
-      </b-col>
-      <b-col cols="6">
-        <b-form-group>
-          <b-input-group append="Sell">
-            <b-form-input type="number" v-model="deviationPRICESell" placeholder="Deviation PRICE " step="any"></b-form-input>
-          </b-input-group>
-        </b-form-group>
-      </b-col>
-    </b-row>
+   
 
     <b-form-group>
       <b-input-group>
@@ -74,6 +53,58 @@
         <b-form-select v-model="ordersSide" :options="ordersSideOptions"></b-form-select>
       </b-input-group>
     </b-form-group>
+
+
+    <div>
+      <div v-for="(set, index) in fieldSets" :key="index">
+        <h4>deviation {{ set.tierNumber }}</h4>
+        <b-button @click="addNewField">Adaugă</b-button>
+        <b-row>
+          <b-col cols="6">
+            <b-form-group>
+              <b-input-group append="Buy">
+                <b-form-input type="number" v-model="set.buy" placeholder="Deviation PRICE " step="any"></b-form-input>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+          <b-col cols="6">
+            <b-form-group>
+              <b-input-group append="Sell">
+                <b-form-input type="number" v-model="set.sell" placeholder="Deviation PRICE " step="any"></b-form-input>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+        </b-row>
+      </div>
+    </div>
+   
+    <div>
+      <div v-for="(set, index) in fieldSets" :key="index">
+        <h4>regroup {{ set.tierNumber }}</h4>
+        <b-button @click="addRegroup">Adaugă</b-button>
+        <b-row>
+          <b-col cols="6">
+            <b-form-group>
+              <b-input-group append="Buy">
+                <b-form-input type="number" v-model="set.buy" placeholder="regroup grid " step="any"></b-form-input>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+          <b-col cols="6">
+            <b-form-group>
+              <b-input-group append="Sell">
+                <b-form-input type="number" v-model="set.sell" placeholder="regroup grid  " step="any"></b-form-input>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+        </b-row>
+      </div>
+    </div>
+  
+   
+ 
+
+
 
     <b-button block type="submit" variant="primary">Create Grid</b-button>
   </b-form>
@@ -113,6 +144,19 @@ export default {
     deviationPRICEBuy:'',
     deviationPRICESell:'',
     balance:0,
+    tierOptions:[
+      { value: 1, text: 'Tier 1' },
+      { value: 2, text: 'Tier 2' },
+      { value: 3, text: 'Tier 3' },
+      { value: 4, text: 'Tier 4' },
+      { value: 5, text: 'Tier 5' },
+      { value: 6, text: 'Tier 6' },
+      { value: 7, text: 'Tier 7' },
+    ],
+    tierCount: 1,
+    fieldSets: [
+      { tierNumber: 1, buy: null, sell: null },
+    ],
   }),
   methods:{
     createOrder: async function(event) {
@@ -132,7 +176,10 @@ export default {
         deviationPercent:this.deviationPercent,
         deviationPRICEBuy:this.deviationPRICEBuy,
         deviationPRICESell:this.deviationPRICESell,
+        tierCount: this.tierCount,
+        fieldSets: this.fieldSets,
       };
+      
 
       let response = await this.$http.$post('/create-grid-orders',{data});
 
@@ -167,6 +214,10 @@ export default {
       this.deviationPRICESell = val;
     },
 
+
+
+
+
     setGrids: function(val){
       this.nrOfGrids = val;
     },
@@ -187,7 +238,34 @@ export default {
         let table = document.getElementById('bids').getElementsByClassName('table');
         this.upperPrice = table[0].rows[1].cells[0].innerHTML / val;
       }
-    }
+    },
+    setTier: function(index, type, value){
+  if(type === 'buy'){
+    this.fieldSets[index].buy = value;
+  }else{
+    this.fieldSets[index].sell = value;
+  }
+},
+addNewField() {
+    this.fieldSets.push(
+      { tierNumber: this.fieldSets.length + 1, regroupGrids: null, regroupOlds: null },
+      
+    );
+  },
+  addRegroup() {
+    this.fieldSets.push(
+      { tierNumber: this.fieldSets.length + 1, regroupGrids: null, regroupOlds: null },
+      
+    );
+  },
+
+
+
+  setTierNumber: function(index, value){
+  this.fieldSets[index].tierNumber = value;
+}
+
+
   },
 }
 </script>
