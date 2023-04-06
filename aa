@@ -40,21 +40,29 @@
       </b-input-group>
     </b-form-group>
 
-
-    
     <b-form-group>
       <b-input-group append="%">
-        <b-form-input type="number" v-model="deviationPercent" placeholder="deviation Percent" step="any"></b-form-input>
+        <b-form-input type="number" v-model="deviationPercent" placeholder="Deviation Percent" step="any"></b-form-input>
       </b-input-group>
     </b-form-group>
 
+    <b-row>
+      <b-col cols="6">
+        <b-form-group>
+          <b-input-group append="Buy">
+            <b-form-input type="number" v-model="deviationPRICEBuy" placeholder="Deviation PRICE " step="any"></b-form-input>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+      <b-col cols="6">
+        <b-form-group>
+          <b-input-group append="Sell">
+            <b-form-input type="number" v-model="deviationPRICESell" placeholder="Deviation PRICE " step="any"></b-form-input>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+    </b-row>
 
-
-    <b-form-group>
-      <b-input-group append="nr">
-        <b-form-input type="number" v-model="deviationGRIDno" placeholder="deviation grid no" step="any"></b-form-input>
-      </b-input-group>
-    </b-form-group>
     <b-form-group>
       <b-input-group>
         <b-form-input type="number" v-model="nrOfGrids" placeholder="Nr of grids" step="any"></b-form-input>
@@ -67,19 +75,10 @@
       </b-input-group>
     </b-form-group>
 
-
-
-
-
-    
     <b-button block type="submit" variant="primary">Create Grid</b-button>
-
-
-    
-      </tr>
-    </table>
   </b-form>
 </template>
+
 
 <script>
 export default {
@@ -95,8 +94,8 @@ export default {
       { value: 'totalAmount', text: 'Total Amount' },
       { value: 'incrementalPercent', text: 'Incremental Amount' },
       { value: 'deviationPercent', text: 'deviationPercent' },
-      { value: 'deviationGRIDno', text: 'deviationGRIDno' },
-
+      { value: 'deviationPRICEBuy', text: 'deviationPRICEBuy' },
+      { value: 'deviationPRICESell', text: 'deviationPRICESell' },
     ],
     ordersSideOptions:[
       { value: 'buyOrSell', text: 'Buy & Sell' },
@@ -111,7 +110,8 @@ export default {
     ordersSide:'buyOrSell',
     incrementalPercent:'',
     deviationPercent:'',
-    deviationGRIDno:'',
+    deviationPRICEBuy:'',
+    deviationPRICESell:'',
     balance:0,
   }),
   methods:{
@@ -130,7 +130,8 @@ export default {
         ordersSide:this.ordersSide,
         incrementalPercent:this.incrementalPercent,
         deviationPercent:this.deviationPercent,
-        deviationGRIDno:this.deviationGRIDno,
+        deviationPRICEBuy:this.deviationPRICEBuy,
+        deviationPRICESell:this.deviationPRICESell,
       };
 
       let response = await this.$http.$post('/create-grid-orders',{data});
@@ -158,10 +159,13 @@ export default {
     setdeviationPercent: function(val){
       this.deviationPercent = val;
     },
-    setdeviationGRIDno: function(val){
-      this.deviationGRIDno = val;
-    },
 
+    setdeviationPRICEBuy: function(val){
+      this.deviationPRICEBuy = val;
+    },
+    setdeviationPRICESell: function(val){
+      this.deviationPRICESell = val;
+    },
 
     setGrids: function(val){
       this.nrOfGrids = val;
