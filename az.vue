@@ -270,12 +270,11 @@ export default {
     fieldSets: [
       {
         tierNumber: 1,
-      
-       DeviationPRICEBuy: null,
-       DeviationPRICESell: null,
-       DeviationAMOUNTBuy: null,
-       DeviationAMOUNTSell: null ,
-       fieldSetsData: this.fieldSetsData,
+        DeviationPRICEBuy: null,
+        DeviationPRICESell: null,
+        DeviationAMOUNTBuy: null,
+        DeviationAMOUNTSell: null ,
+        
       },
     ],
     fieldSets2: [
@@ -290,39 +289,30 @@ export default {
         lowerPrice: '',
         upperPrice: '',
         fibdowntrend: '',
-        fibuptrend: '' },
+        fibuptrend: ''
+      },
     ],
   }),
-  methods:
-  {createOrder: async function(event) {
-  event.preventDefault();
-  let field = null; // declarare si initializare variabila 'field'
-  const orders = []; // initialize the orders variable as an empty array
+  methods: {
+    createOrder: async function(event) {
+      event.preventDefault();
+      let field = null; // declarare si initializare variabila 'field'
+      const orders = []; // initialize the orders variable as an empty array
 
+      if (field && field.DeviationPRICEBuy) {
+        const deviationPriceBuy = Number(field.DeviationPRICEBuy);
+        // calculează noul preț pentru fiecare comandă din orders
+        const updatedOrders = orders.map(order => {
+          const oldPrice = Number(order.price);
+          const newPrice = deviationPriceBuy * oldPrice;
+          return {
+            ...order,
+            newPrice
+          };
+        });
+      }
+  
 
-  // Calculare DeviationPRICEBuy
-  const deviationPriceBuy = this.DeviationPRICEBuy ? Number(this.DeviationPRICEBuy) : null;
-
-  // Calculare DeviationPRICESell
-  const deviationPriceSell = this.DeviationPRICESell ? Number(this.DeviationPRICESell) : null;
-
-  // Calculează noul preț pentru fiecare comandă din orders în funcție de DeviationPRICEBuy și DeviationPRICESell
-  const updatedOrders = orders.map(order => {
-    const oldPrice = Number(order.price);
-    let newPrice = oldPrice;
-
-    if (deviationPriceBuy) {
-      newPrice = deviationPriceBuy * oldPrice;
-    } else if (deviationPriceSell) {
-      newPrice = deviationPriceSell * oldPrice;
-    }
-
-    return {
-      ...order,
-      newPrice
-    };
-  });
-  const fieldSetsData = myObject && myObject.fieldSetsData;
 
  const data = {
   name: this.gridName,
@@ -336,26 +326,21 @@ export default {
   ordersSide: this.ordersSide,
   incrementalPercent: this.incrementalPercent,
   tierCount: this.tierCount,
-  fieldSets: [
-    {
-      tierNumber: 1,
-      DeviationPRICEBuy: null,
-      DeviationPRICESell: null,
-      DeviationAMOUNTBuy: null,
-      DeviationAMOUNTSell: null,
-      fieldSetsData: []
-    },
-    {
-      tierNumber: 2,
-      DeviationPRICEBuy: null,
-      DeviationPRICESell: null,
-      DeviationAMOUNTBuy: null,
-      DeviationAMOUNTSell: null,
-      fieldSetsData: []
-    }
-  ],
+  fieldSets: [],
+  fieldSets2: [],
+  };
 
-  fieldSets2: this.fieldSets2.map(field => ({
+  if (this.fieldSets && this.fieldSets.length > 0) {
+    data.fieldSets = this.fieldSets.map(field => ({
+      tierNumber: this.tierNumber,
+      DeviationPRICEBuy: this.DeviationPRICEBuy,
+      DeviationPRICESell: this.DeviationPRICESell,
+      DeviationAMOUNTBuy: this.DeviationAMOUNTBuy,
+      DeviationAMOUNTSell: this.DeviationAMOUNTSell,
+      fieldSetsData: this.fieldSetsData || []
+    }));
+
+    data.fieldSets2 = this.fieldSets2.map(field => ({
     ...field,
     new: field.new === null ? null : Number(field.new),
     old: field.old === null ? null : Number(field.old),
@@ -367,9 +352,9 @@ export default {
     lowerPrice: field.lowerPrice === null ? null : Number(field.lowerPrice),
     upperPrice: field.upperPrice === null ? null : Number(field.upperPrice),
     fibdowntrend: field.fibdowntrend === null ? null : Number(field.fibdowntrend),
-    fibuptrend: field.fibuptrend === null ? null : Number(field.fibuptrend)
-  }))
-};
+    fibuptrend: field.fibuptrend === null ? null : Number(field.fibuptrend),
+    fieldSetsData2: field.fieldSetsData2 || []
+  }))};
 
 
   let response = await this.$http.$post('/create-grid-orders', { data });
@@ -405,15 +390,6 @@ export default {
     setDeviationAMOUNTSell: function(val){
       this.DeviationAMOUNTSell = val;
     },
-
-
-
-    
-
-
-
-
-
     setGrids: function(val){
       this.nrOfGrids = val;
     },
