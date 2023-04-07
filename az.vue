@@ -274,7 +274,9 @@ export default {
        DeviationPRICEBuy: null,
        DeviationPRICESell: null,
        DeviationAMOUNTBuy: null,
-       DeviationAMOUNTSell: null },
+       DeviationAMOUNTSell: null ,
+       fieldSetsData: this.fieldSetsData,
+      },
     ],
     fieldSets2: [
       { tierNumber2:  1, 
@@ -294,48 +296,83 @@ export default {
   methods:
   {createOrder: async function(event) {
   event.preventDefault();
+  let field = null; // declarare si initializare variabila 'field'
+  const orders = []; // initialize the orders variable as an empty array
 
 
+  // Calculare DeviationPRICEBuy
+  const deviationPriceBuy = this.DeviationPRICEBuy ? Number(this.DeviationPRICEBuy) : null;
+
+  // Calculare DeviationPRICESell
+  const deviationPriceSell = this.DeviationPRICESell ? Number(this.DeviationPRICESell) : null;
+
+  // Calculează noul preț pentru fiecare comandă din orders în funcție de DeviationPRICEBuy și DeviationPRICESell
+  const updatedOrders = orders.map(order => {
+    const oldPrice = Number(order.price);
+    let newPrice = oldPrice;
+
+    if (deviationPriceBuy) {
+      newPrice = deviationPriceBuy * oldPrice;
+    } else if (deviationPriceSell) {
+      newPrice = deviationPriceSell * oldPrice;
+    }
+
+    return {
+      ...order,
+      newPrice
+    };
+  });
+  const fieldSetsData = myObject && myObject.fieldSetsData;
+
+ const data = {
+  name: this.gridName,
+  exchange: this.exchange,
+  symbol: this.market.symbol,
+  lowerPrice: this.lowerPrice,
+  upperPrice: this.upperPrice,
+  amountType: this.amountType,
+  amount: this.amount,
+  nrOfGrids: this.nrOfGrids,
+  ordersSide: this.ordersSide,
+  incrementalPercent: this.incrementalPercent,
+  tierCount: this.tierCount,
+  fieldSets: [
+    {
+      tierNumber: 1,
+      DeviationPRICEBuy: null,
+      DeviationPRICESell: null,
+      DeviationAMOUNTBuy: null,
+      DeviationAMOUNTSell: null,
+      fieldSetsData: []
+    },
+    {
+      tierNumber: 2,
+      DeviationPRICEBuy: null,
+      DeviationPRICESell: null,
+      DeviationAMOUNTBuy: null,
+      DeviationAMOUNTSell: null,
+      fieldSetsData: []
+    }
+  ],
+
+  fieldSets2: this.fieldSets2.map(field => ({
+    ...field,
+    new: field.new === null ? null : Number(field.new),
+    old: field.old === null ? null : Number(field.old),
+    balance: field.balance === null ? null : Number(field.balance),
+    rsi: field.rsi === null ? null : Number(field.rsi),
+    macd: field.macd === null ? null : Number(field.macd),
+    price: field.price === null ? null : Number(field.price),
+    fiblev: field.fiblev === null ? null : Number(field.fiblev),
+    lowerPrice: field.lowerPrice === null ? null : Number(field.lowerPrice),
+    upperPrice: field.upperPrice === null ? null : Number(field.upperPrice),
+    fibdowntrend: field.fibdowntrend === null ? null : Number(field.fibdowntrend),
+    fibuptrend: field.fibuptrend === null ? null : Number(field.fibuptrend)
+  }))
+};
 
 
-
-      
-
-  let data = {
-    name: this.gridName,
-    exchange:this.exchange,
-    symbol:this.market.symbol,
-    lowerPrice:this.lowerPrice,
-    upperPrice:this.upperPrice,
-    amountType:this.amountType,
-    amount:this.amount,
-    nrOfGrids:this.nrOfGrids,
-    ordersSide:this.ordersSide,
-    incrementalPercent:this.incrementalPercent,
-    tierCount: this.tierCount,
-    
-      DeviationPRICEBuy: field.DeviationPRICEBuy === null ? null : Number(field.DeviationPRICEBuy),
-      DeviationPRICESell: field.DeviationPRICESell === null ? null : Number(field.DeviationPRICESell),
-      DeviationAMOUNTBuy: field.DeviationAMOUNTBuy === null ? null : Number(field.DeviationAMOUNTBuy),
-      DeviationAMOUNTSell: field.DeviationAMOUNTSell === null ? null : Number(field.DeviationAMOUNTSell),
-    
-    
-      new: field.new === null ? null : Number(field.new),
-      old: field.old === null ? null : Number(field.old),
-      balance: field.balance === null ? null : Number(field.balance),
-      rsi: field.rsi === null ? null : Number(field.rsi),
-      macd: field.macd === null ? null : Number(field.macd),
-      price: field.price === null ? null : Number(field.price),
-      fiblev: field.fiblev === null ? null : Number(field.fiblev),
-      lowerPrice: field.lowerPrice === null ? null : Number(field.lowerPrice),
-      upperPrice: field.upperPrice === null ? null : Number(field.upperPrice),
-      fibdowntrend: field.fibdowntrend === null ? null : Number(field.fibdowntrend),
-      fibuptrend: field.fibuptrend === null ? null : Number(field.fibuptrend),
-    
-  };
-
-  
-  let response = await this.$http.$post('/create-grid-orders',{data});
+  let response = await this.$http.$post('/create-grid-orders', { data });
 
   console.log(response);
 
@@ -346,8 +383,9 @@ export default {
     title: `Cancel Order`,
     autoHideDelay: 5000,
     appendToast: true
-  })
+  });
 },
+
   setAmount: function(val){
       this.amount = val;
     },
