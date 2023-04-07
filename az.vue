@@ -58,72 +58,74 @@
     </b-form-group>
 
 
-    <div>
-    <b-button @click="addNewField">Level 1</b-button>
-    <b-button variant="danger" @click="removeField(index)">Elimină</b-button>
-
-    <div v-for="(set, index) in fieldSets" :key="index">
-      <h4>deviation {{ set.tierNumber }}</h4>
-      <b-row>
-        <b-col cols="6">
-          <b-form-group>
-            <b-input-group append="">
-              <b-form-input type="number" :value="set.DeviationPRICEBuy" placeholder="DeviationPRICEBuy %" step="any"></b-form-input>
-            </b-input-group>
-          </b-form-group>
-        </b-col>
-        <b-col cols="6">
-          <b-form-group>
-            <b-input-group append="">
-              <b-form-input type="number" :value="set.DeviationPRICESell" placeholder="DeviationPRICESell %" step="any"></b-form-input>
-            </b-input-group>
-          </b-form-group>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col cols="6">
-          <b-form-group>
-            <b-input-group append="">
-              <b-form-input type="number" :value="set.DeviationAMOUNTBuy" placeholder="DeviationAMOUNTBuy %" step="any"></b-form-input>
-            </b-input-group>
-          </b-form-group>
-        </b-col>
-        <b-col cols="6">
-          <b-form-group>
-            <b-input-group append="">
-              <b-form-input type="number" :value="set.DeviationAMOUNTSell" placeholder="DeviationAMOUNTSell %" step="any"></b-form-input>
-            </b-input-group>
-          </b-form-group>
-        </b-col>
-      </b-row>
-    </div>
-  </div>
+    <b-button @click="addNewField" variant="primary" class="mb-3 shadow-sm">Level1</b-button>
+    
+    <div v-for="(set, index) in fieldSets" :key="set.id">
+  
+  <b-button variant="danger" @click="removeField(set.id)">Elimină</b-button>
+  <h4>Level1 {{ set.tierNumber }}</h4>
+  <b-row>
+    <b-col cols="6">
+      <b-form-group>
+        <b-input-group append="">
+          <b-form-input type="number" v-model="set.DeviationPRICEBuy" placeholder="DeviationPRICEBuy %" step="any"></b-form-input>
+        </b-input-group>
+      </b-form-group>
+    </b-col>
+    <b-col cols="6">
+      <b-form-group>
+        <b-input-group append="">
+          <b-form-input type="number" v-model="set.DeviationPRICESell" placeholder="DeviationPRICESell %" step="any"></b-form-input>
+        </b-input-group>
+      </b-form-group>
+    </b-col>
+  </b-row>
+  <b-row>
+    <b-col cols="6">
+      <b-form-group>
+        <b-input-group append="">
+          <b-form-input type="number" v-model="set.DeviationAMOUNTBuy" placeholder="DeviationAMOUNTBuy %" step="any"></b-form-input>
+        </b-input-group>
+      </b-form-group>
+    </b-col>
+    <b-col cols="6">
+      <b-form-group>
+        <b-input-group append="">
+          <b-form-input type="number" v-model="set.DeviationAMOUNTSell" placeholder="DeviationAMOUNTSell %" step="any"></b-form-input>
+        </b-input-group>
+      </b-form-group>
+    </b-col>
+  </b-row>
+  
+</div>
 
    
 <div>
-  <b-button @click="addRegroup">Advanced MODE</b-button>
+  <b-button @click="addRegroup">AdvancedMODE</b-button>
   <b-button variant="danger" @click="removeRegroup(index)">Elimină</b-button>
+
+  
   <div v-for="(set, index) in fieldSets2" :key="index">
-    <h4>regroup {{ set.tierNumber2 }}</h4>
+    <h4>AdvancedMODE {{ set.tierNumber2 }}</h4>
     <b-row>
       <b-col cols="4">
         <b-form-group>
           <b-input-group append="">
-            <b-form-input type="number" v-model="set.new" placeholder="regroup grid old" step="any"></b-form-input>
+            <b-form-input type="number" v-model="nrOfGrids" placeholder="regroup grid old" step="any"></b-form-input>
           </b-input-group>
         </b-form-group>
       </b-col>
       <b-col cols="4">
         <b-form-group>
           <b-input-group append="">
-            <b-form-input type="number" v-model="set.old" placeholder="regroup grid new" step="any"></b-form-input>
+            <b-form-input type="number" v-model="set.newgridregroup" placeholder="regroup grid new" step="any"></b-form-input>
           </b-input-group>
         </b-form-group>
       </b-col>
       <b-col cols="4">
         <b-form-group>
           <b-input-group append="">
-            <b-form-input type="number" v-model="set.balance" placeholder="regroup balance %" step="any"></b-form-input>
+            <b-form-input type="number" v-model="set.regroupbalance" placeholder="regroup balance %" step="any"></b-form-input>
           </b-input-group>
         </b-form-group>
       </b-col>
@@ -144,7 +146,7 @@
       <b-col cols="4">
         <b-form-group>
           <b-input-group append="">
-            <b-form-input type="number" v-model="set.price" placeholder="regroup PRICE" step="any"></b-form-input>
+            <b-form-input type="number" v-model="set.priceregroup" placeholder="regroup PRICE" step="any"></b-form-input>
           </b-input-group>
         </b-form-group>
       </b-col>
@@ -159,14 +161,14 @@
       <b-col cols="4">
         <b-form-group>
           <b-input-group append="">
-            <b-form-input type="number" v-model="set.lowerPrice" placeholder="rangelowerPrice" step="any"></b-form-input>
+            <b-form-input type="number" v-model="set.rangelowerPrice" placeholder="rangelowerPrice" step="any"></b-form-input>
           </b-input-group>
         </b-form-group>
       </b-col>
       <b-col cols="4">
         <b-form-group>
           <b-input-group append="">
-            <b-form-input type="number" v-model="set.upperPrice" placeholder="rangeupperPrice" step="any"></b-form-input>
+            <b-form-input type="number" v-model="set.rangeupperPrice" placeholder="rangeupperPrice" step="any"></b-form-input>
           </b-input-group>
         </b-form-group>
       </b-col>
@@ -254,6 +256,7 @@ export default {
     amountType:'quantityPerGrid',
     amount:'',
     nrOfGrids:'',
+    
     ordersSide:'buyOrSell',
     incrementalPercent:'',
     balance:0,
@@ -279,15 +282,15 @@ export default {
     ],
     fieldSets2: [
       { tierNumber2:  1, 
-        new: '',
-        old: '',
-        balance: '',
+        newgridregroup: '',
+        oldgridregroup: '',
+        regroupbalance: '',
         rsi: '',
         macd: '',
-        price: '',
+        priceregroup: '',
         fiblev: '',
-        lowerPrice: '',
-        upperPrice: '',
+        rangelowerPrice: '',
+        rangeupperPrice: '',
         fibdowntrend: '',
         fibuptrend: ''
       },
@@ -342,20 +345,20 @@ export default {
 
     data.fieldSets2 = this.fieldSets2.map(field => ({
     ...field,
-    new: field.new === null ? null : Number(field.new),
-    old: field.old === null ? null : Number(field.old),
-    balance: field.balance === null ? null : Number(field.balance),
+    tierNumber2: this.tierNumber2,
+    newgridregroup: field.newgridregroup === null ? null : Number(field.newgridregroup),
+    oldgridregroup: field.oldgridregroup === null ? null : Number(field.oldgridregroup),
+    regroupbalance: field.regroupbalance === null ? null : Number(field.regroupbalance),
     rsi: field.rsi === null ? null : Number(field.rsi),
     macd: field.macd === null ? null : Number(field.macd),
-    price: field.price === null ? null : Number(field.price),
+    priceregroup: field.priceregroup === null ? null : Number(field.priceregroup),
     fiblev: field.fiblev === null ? null : Number(field.fiblev),
-    lowerPrice: field.lowerPrice === null ? null : Number(field.lowerPrice),
-    upperPrice: field.upperPrice === null ? null : Number(field.upperPrice),
+    rangelowerPrice: field.rangelowerPrice === null ? null : Number(field.rangelowerPrice),
+    rangeupperPrice: field.rangeupperPrice === null ? null : Number(field.rangeupperPrice),
     fibdowntrend: field.fibdowntrend === null ? null : Number(field.fibdowntrend),
     fibuptrend: field.fibuptrend === null ? null : Number(field.fibuptrend),
     fieldSetsData2: field.fieldSetsData2 || []
   }))};
-
 
   let response = await this.$http.$post('/create-grid-orders', { data });
 
@@ -384,12 +387,33 @@ export default {
       this.DeviationPRICESell = val;
     },
 
-    setDeviationAMOUNTBuy: function(val){
-      this.DeviationAMOUNTBuy = val;
+    setnewgridregroup: function(val){
+      this.newgridregroup = val;
     },
-    setDeviationAMOUNTSell: function(val){
-      this.DeviationAMOUNTSell = val;
+    setoldgridregroup: function(val){
+      this.oldgridregroup = val;
     },
+
+
+    setpriceregroup: function(val){
+      this.priceregroup = val;
+    },
+
+    setrangelowerPrice: function(val){
+      this.rangelowerPrice = val;
+    },
+
+    setrsi: function(val){
+      this.rsi = val;
+    },
+
+    setmacd: function(val){
+      this.macd = val;
+    },
+    setfiblev: function(val){
+      this.fiblev = val;
+    },
+   
     setGrids: function(val){
       this.nrOfGrids = val;
     },
@@ -420,23 +444,23 @@ export default {
     },
     setTier2: function(index, type, val){
       if(type === 'old'){
-        this.fieldSets2[index].old = val;
+        this.fieldSets2[index].oldgridregroup = val;
       } else if(type === 'new'){
-        this.fieldSets2[index].new = val;
+        this.fieldSets2[index].newgridregroup = val;
       } else if(type === 'balance'){
-        this.fieldSets2[index].balance = val;
+        this.fieldSets2[index].regroupbalance = val;
       } else if(type === 'RSI'){
         this.fieldSets2[index].rsi = val;
       } else if(type === 'MACD'){
         this.fieldSets2[index].macd = val;
       } else if(type === 'price'){
-        this.fieldSets2[index].price = val;
+        this.fieldSets2[index].priceregroup = val;
       } else if(type === 'fiblevel'){
         this.fieldSets2[index].fiblevel = val;
       } else if(type === 'lowerPrice'){
-        this.fieldSets2[index].lowerPrice = val;
+        this.fieldSets2[index].rangelowerPrice = val;
       } else if(type === 'upperPrice'){
-        this.fieldSets2[index].upperPrice = val;
+        this.fieldSets2[index].rangeupperPrice = val;
       } else if(type === 'fibdowntrend'){
         this.fieldSets2[index].fibdowntrend = val;
       } else if(type === 'fibuptrend'){
