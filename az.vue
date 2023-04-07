@@ -59,50 +59,45 @@
 
 
     <div>
-      <b-button @click="addNewField">Level 1</b-button>
-      <b-button variant="danger" @click="removeField(index)">Elimină</b-button>
+    <b-button @click="addNewField">Level 1</b-button>
+    <b-button variant="danger" @click="removeField(index)">Elimină</b-button>
 
-         <div v-for="(set, index) in fieldSets" :key="index">
-           <h4>deviation {{ set.tierNumber }}</h4>
-                  <b-row>
-                   <b-col cols="6">
-                    <b-form-group>
-                    <b-input-group append="">
-                    <b-form-input type="number" v-model="DeviationPRICEBuy" placeholder="DeviationPRICEBuy %" step="any"></b-form-input>
-                    </b-input-group>
-                    </b-form-group>
-                   </b-col>
-                    <b-col cols="6">
-                    <b-form-group>
-                    <b-input-group append="">
-                    <b-form-input type="number" v-model="DeviationPRICESell" placeholder="DeviationPRICESell %" step="any"></b-form-input>
-                    </b-input-group>
-                    </b-form-group>
-                   </b-col>
-                 </b-row>
-                 <b-row>
-                   <b-col cols="6">
-                    <b-form-group>
-                    <b-input-group append="">
-                    <b-form-input type="number" v-model="DeviationAMOUNTBuy" placeholder="DeviationAMOUNTBuy %" step="any"></b-form-input>
-                    </b-input-group>
-                    </b-form-group>
-                   </b-col>
-                    <b-col cols="6">
-                    <b-form-group>
-                    <b-input-group append="">
-                    <b-form-input type="number" v-model="DeviationAMOUNTSell" placeholder="DeviationAMOUNTSell %" step="any"></b-form-input>
-                    </b-input-group>
-                    </b-form-group>
-                   </b-col>
-                 </b-row>
-
-
-                 
-
-            </div>
- 
+    <div v-for="(set, index) in fieldSets" :key="index">
+      <h4>deviation {{ set.tierNumber }}</h4>
+      <b-row>
+        <b-col cols="6">
+          <b-form-group>
+            <b-input-group append="">
+              <b-form-input type="number" :value="set.DeviationPRICEBuy" placeholder="DeviationPRICEBuy %" step="any"></b-form-input>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+        <b-col cols="6">
+          <b-form-group>
+            <b-input-group append="">
+              <b-form-input type="number" :value="set.DeviationPRICESell" placeholder="DeviationPRICESell %" step="any"></b-form-input>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col cols="6">
+          <b-form-group>
+            <b-input-group append="">
+              <b-form-input type="number" :value="set.DeviationAMOUNTBuy" placeholder="DeviationAMOUNTBuy %" step="any"></b-form-input>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+        <b-col cols="6">
+          <b-form-group>
+            <b-input-group append="">
+              <b-form-input type="number" :value="set.DeviationAMOUNTSell" placeholder="DeviationAMOUNTSell %" step="any"></b-form-input>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+      </b-row>
     </div>
+  </div>
 
    
 <div>
@@ -261,8 +256,6 @@ export default {
     nrOfGrids:'',
     ordersSide:'buyOrSell',
     incrementalPercent:'',
-    DeviationPRICEBuy:'',
-    DeviationPRICESell:'',
     balance:0,
     tierOptions:[
       { value: 1, text: 'Tier 1' },
@@ -275,7 +268,13 @@ export default {
     ],
     tierCount: 1,
     fieldSets: [
-      { tierNumber: 1, DeviationPRICEBuy: '', DeviationPRICESell: '',DeviationAMOUNTBuy: '' , DeviationAMOUNTSell: '' },
+      {
+        tierNumber: 1,
+      
+       DeviationPRICEBuy: null,
+       DeviationPRICESell: null,
+       DeviationAMOUNTBuy: null,
+       DeviationAMOUNTSell: null },
     ],
     fieldSets2: [
       { tierNumber2:  1, 
@@ -292,60 +291,64 @@ export default {
         fibuptrend: '' },
     ],
   }),
-  methods:{
-    createOrder: async function(event) {
-      event.preventDefault();
+  methods:
+  {createOrder: async function(event) {
+  event.preventDefault();
 
-      let data = {
-        name: this.gridName,
-        exchange:this.exchange,
-        symbol:this.market.symbol,
-        lowerPrice:this.lowerPrice,
-        upperPrice:this.upperPrice,
-        amountType:this.amountType,
-        amount:this.amount,
-        nrOfGrids:this.nrOfGrids,
-        ordersSide:this.ordersSide,
-        incrementalPercent:this.incrementalPercent,
-        tierCount: this.tierCount,
-        fieldSets: this.fieldSets,
-        tierNumber:this.tierNumber,
-        DeviationPRICEBuy:this.DeviationPRICEBuy,
-        DeviationPRICESell:this.DeviationPRICESell,
-        DeviationAMOUNTBuy:this.DeviationAMOUNTBuy,
-        DeviationAMOUNTSell:this.DeviationAMOUNTSell,       
-        fieldSets2: this.fieldSets2,
-        tierNumber2:this.tierNumber2,
-        new:this.new,
-        old:this.old,
-        balance:this.balance,
-        rsi:this.rsi,
-        macd:this.macd,
-        price:this.price,
-        fiblev:this.fiblev,
-        lowerPrice:this.lowerPrice,
-        upperPrice:this.upperPrice,
-        fibdowntrend:this.fibdowntrend,
-        fibuptrend:this.fibuptrend,
-      };
+
+
+
+
       
 
-      let response = await this.$http.$post('/create-grid-orders',{data});
+  let data = {
+    name: this.gridName,
+    exchange:this.exchange,
+    symbol:this.market.symbol,
+    lowerPrice:this.lowerPrice,
+    upperPrice:this.upperPrice,
+    amountType:this.amountType,
+    amount:this.amount,
+    nrOfGrids:this.nrOfGrids,
+    ordersSide:this.ordersSide,
+    incrementalPercent:this.incrementalPercent,
+    tierCount: this.tierCount,
+    
+      DeviationPRICEBuy: field.DeviationPRICEBuy === null ? null : Number(field.DeviationPRICEBuy),
+      DeviationPRICESell: field.DeviationPRICESell === null ? null : Number(field.DeviationPRICESell),
+      DeviationAMOUNTBuy: field.DeviationAMOUNTBuy === null ? null : Number(field.DeviationAMOUNTBuy),
+      DeviationAMOUNTSell: field.DeviationAMOUNTSell === null ? null : Number(field.DeviationAMOUNTSell),
+    
+    
+      new: field.new === null ? null : Number(field.new),
+      old: field.old === null ? null : Number(field.old),
+      balance: field.balance === null ? null : Number(field.balance),
+      rsi: field.rsi === null ? null : Number(field.rsi),
+      macd: field.macd === null ? null : Number(field.macd),
+      price: field.price === null ? null : Number(field.price),
+      fiblev: field.fiblev === null ? null : Number(field.fiblev),
+      lowerPrice: field.lowerPrice === null ? null : Number(field.lowerPrice),
+      upperPrice: field.upperPrice === null ? null : Number(field.upperPrice),
+      fibdowntrend: field.fibdowntrend === null ? null : Number(field.fibdowntrend),
+      fibuptrend: field.fibuptrend === null ? null : Number(field.fibuptrend),
+    
+  };
 
+  
+  let response = await this.$http.$post('/create-grid-orders',{data});
 
+  console.log(response);
 
-      console.log(response);
+  let log = null;
+  log = `Submitted grid order`;
 
-      let log = null;
-      log = `Submitted grid order`;
-
-      this.$bvToast.toast(log, {
-        title: `Cancel Order`,
-        autoHideDelay: 5000,
-        appendToast: true
-      })
-    },
-    setAmount: function(val){
+  this.$bvToast.toast(log, {
+    title: `Cancel Order`,
+    autoHideDelay: 5000,
+    appendToast: true
+  })
+},
+  setAmount: function(val){
       this.amount = val;
     },
     setIncrement: function(val){
@@ -358,6 +361,12 @@ export default {
       this.DeviationPRICESell = val;
     },
 
+    setDeviationAMOUNTBuy: function(val){
+      this.DeviationAMOUNTBuy = val;
+    },
+    setDeviationAMOUNTSell: function(val){
+      this.DeviationAMOUNTSell = val;
+    },
 
 
 
