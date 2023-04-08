@@ -1,5 +1,5 @@
 <template>
-  <b-table
+  <b-table id="BalanceTab"
     :items="balanceData"
     :fields="balanceFields"
     sort-icon-left
