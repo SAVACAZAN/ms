@@ -1,146 +1,11 @@
 <template>
+
   <b-tabs content-class="mt-3">
+   <b-tab title="Tools" active>
+       <b-table>
 
-
-    <b-tab title="Tools" active>
-      
-      <b-table></b-table>
-  
-      <table>
-      <tr>
-        <td>
-          
-          <b-button size="sm" @click="setLower('buy', 1)" variant="secondary">1%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1)" variant="secondary">1%</b-button> <br>
-          <b-button size="sm" @click="setLower('buy',1.01)" variant="secondary"> 1%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.01)" variant="secondary"> 1%</b-button> <br>
-          <b-button size="sm" @click="setLower('buy',1.02)" variant="secondary"> 2%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.02)" variant="secondary"> 2%</b-button> <br>
-          <b-button size="sm" @click="setLower('buy',1.03)" variant="secondary"> 3%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.03)" variant="secondary"> 3%</b-button> <br>
-          <b-button size="sm" @click="setLower('buy',1.04)" variant="secondary"> 4%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.04)" variant="secondary"> 4%</b-button><br>
-          <b-button size="sm" @click="setLower('buy',1.08)" variant="secondary"> 8%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.08)" variant="secondary"> 8%</b-button><br>
-          <b-button size="sm" @click="setLower('buy',1.08)" variant="secondary"> 8%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.08)" variant="secondary"> 8%</b-button><br>
-        </td>
-        
-          <td>         
-          <b-button size="sm" @click="setLower('buy', 1)" variant="info">10%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1)" variant="info">10%</b-button> <br>
-          <b-button size="sm" @click="setLower('buy',1.1)" variant="info"> 10%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.1)" variant="info"> 10%</b-button> <br>
-          <b-button size="sm" @click="setLower('buy',1.11)" variant="info"> 11%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.11)" variant="info"> 11%</b-button> <br>
-          <b-button size="sm" @click="setLower('buy',1.13)" variant="info"> 13%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.13)" variant="info"> 13%</b-button> <br>
-          <b-button size="sm" @click="setLower('buy',1.14)" variant="info"> 14%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.14)" variant="info"> 14%</b-button><br>
-          <b-button size="sm" @click="setLower('buy',1.18)" variant="info"> 18%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.18)" variant="info"> 18%</b-button><br>
-          <b-button size="sm" @click="setLower('buy',1.18)" variant="info"> 18%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.18)" variant="info"> 18%</b-button><br>
-        </td>
-        <td>          
-          <b-button size="sm" @click="setLower('buy', 1)" variant="success">10%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1)" variant="success">10%</b-button> <br>
-          <b-button size="sm" @click="setLower('buy',1.1)" variant="success"> 10%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.1)" variant="success"> 10%</b-button> <br>
-          <b-button size="sm" @click="setLower('buy',1.2)" variant="success"> 20%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.2)" variant="success"> 20%</b-button> <br>
-          <b-button size="sm" @click="setLower('buy',1.3)" variant="success"> 30%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.3)" variant="success"> 30%</b-button> <br>
-          <b-button size="sm" @click="setLower('buy',1.4)" variant="success"> 40%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.4)" variant="success"> 40%</b-button><br>
-          <b-button size="sm" @click="setLower('buy',2.011)" variant="success"> 88%</b-button>
-          <b-button size="sm" @click="setUpper('buy',2.011)" variant="success"> 88%</b-button><br>  
-          <b-button size="sm" @click="setLower('buy',2.011)" variant="success"> 88%</b-button>
-          <b-button size="sm" @click="setUpper('buy',2.011)" variant="success"> 88%</b-button><br>
-        </td>
-        <td>  
-          <b-button size="sm" @click="setLower('buy', 1)" variant="danger">161.8%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1)" variant="danger">23.60%</b-button> <br>
-          <b-button size="sm" @click="setLower('buy',1.1)" variant="danger"> 138.2%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.1)" variant="danger"> 38.20%</b-button> <br>
-          <b-button size="sm" @click="setLower('buy',1.2)" variant="danger"> 78.60%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.2)" variant="danger"> 50.00%</b-button> <br>
-          <b-button size="sm" @click="setLower('buy',1.3)" variant="danger"> 61.80%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.3)" variant="danger"> 61.80%</b-button> <br>
-          <b-button size="sm" @click="setLower('buy',1.4)" variant="danger"> 50.00%</b-button>
-          <b-button size="sm" @click="setUpper('buy',1.4)" variant="danger"> 78.60%</b-button><br>
-          <b-button size="sm" @click="setLower('buy',2.011)" variant="danger"> 38.2%</b-button>
-          <b-button size="sm" @click="setUpper('buy',2.011)" variant="danger"> 138.2%</b-button><br>
-          <b-button size="sm" @click="setLower('buy',2.011)" variant="danger"> 23.6%</b-button>
-          <b-button size="sm" @click="setUpper('buy',2.011)" variant="danger"> 161.8%</b-button><br>
-
-
-          
-
-
-        </td>
-      </tr>
-    </table>
-
-    <table>
-      <tr>
-        <td>
-          <small>Amount:</small>
-        </td>
-        <td>
-          <b-button size="sm" @click="setAmount(1)" variant="warning">1 {{this.market.quote}}</b-button>
-          <b-button size="sm" @click="setAmount(2)" variant="warning">2 {{this.market.quote}}</b-button>
-          <b-button size="sm" @click="setAmount(3)" variant="warning">3 {{this.market.quote}}</b-button>
-          <b-button size="sm" @click="setAmount(5)" variant="warning">5 {{this.market.quote}}</b-button>
-          <b-button size="sm" @click="setAmount(10)" variant="warning">10 {{this.market.quote}}</b-button>
-          <b-button size="sm" @click="setAmount(20)" variant="warning">20 {{this.market.quote}}</b-button>
-          <b-button size="sm" @click="setAmount(100)" variant="warning">100 {{this.market.quote}}</b-button>
-          <b-button size="sm" @click="setAmount(200)" variant="warning">200 {{this.market.quote}}</b-button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <small>Increment</small>
-        </td>
-        <td>
-          <b-button size="sm" @click="setIncrement(0.1)" variant="info">0.1</b-button>
-          <b-button size="sm" @click="setIncrement(0.2)" variant="info">0.2</b-button>
-          <b-button size="sm" @click="setIncrement(0.3)" variant="info">0.3</b-button>
-          <b-button size="sm" @click="setIncrement(0.4)" variant="info">0.4</b-button>
-          <b-button size="sm" @click="setIncrement(0.5)" variant="info">0.5</b-button>
-          <b-button size="sm" @click="setIncrement(1)" variant="info">1</b-button>
-          <b-button size="sm" @click="setIncrement(2)" variant="info">2</b-button>
-          <b-button size="sm" @click="setIncrement(3)" variant="info">3</b-button>
-          <b-button size="sm" @click="setIncrement(4)" variant="info">4</b-button>
-          <b-button size="sm" @click="setIncrement(5)" variant="info">5</b-button>
-          <b-button size="sm" @click="setIncrement(10)" variant="info">10</b-button>
-          <b-button size="sm" @click="setIncrement(20)" variant="info">20</b-button>
-          <b-button size="sm" @click="setIncrement(30)" variant="info">30</b-button>
-          <b-button size="sm" @click="setIncrement(50)" variant="info">50</b-button>
-          <b-button size="sm" @click="setIncrement(100)" variant="info">100</b-button>
-          <b-button size="sm" @click="setIncrement(150)" variant="info">150</b-button>
-          <b-button size="sm" @click="setIncrement(200)" variant="info">200</b-button>
-
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <small>Grids:</small>
-        </td>
-        <td>
-          <b-button size="sm" @click="setGrids(1)" variant="primary">1</b-button>
-          <b-button size="sm" @click="setGrids(5)" variant="primary">5</b-button>
-          <b-button size="sm" @click="setGrids(10)" variant="primary">10</b-button>
-          <b-button size="sm" @click="setGrids(20)" variant="primary">20</b-button>
-          <b-button size="sm" @click="setGrids(30)" variant="primary">30</b-button>
-          <b-button size="sm" @click="setGrids(50)" variant="primary">50</b-button>
-          <b-button size="sm" @click="setGrids(100)" variant="primary">100</b-button>
-
-        </td>
-      </tr>
-    </table>
-
-    </b-tab>
+      </b-table>
+   </b-tab>
 
 
 
@@ -167,6 +32,10 @@
         </template>
       </b-table>
     </b-tab>
+
+
+
+    
     <b-tab title="Closed Orders">
       <b-table
         :items="closedOrders.data"
@@ -258,13 +127,23 @@
 
 
   </b-table>
-</b-tab>
+ </b-tab>
 
-
+ <b-button variant="primary" @click="updateGridOrders">Adaugă grid</b-button>
 
 <b-tab title="GridOrdersBalance">
-
 </b-tab>
+
+
+
+  <b-tab title="DailyTrading">
+</b-tab>
+
+<b-tab title="Strategies">
+</b-tab>
+
+
+
 <b-tab title="Indicators">
 
 </b-tab>
@@ -357,22 +236,71 @@ export default {
       ],
       data:[]
     },
-    gridOrders:{
-      fields: [
-        { key: 'name', sortable: true },
-        { key: 'exchange', sortable: true },
-        { key: 'symbol', sortable: true },
-        { key: 'upperPrice', sortable: true },
-        { key: 'lowerPrice', sortable: true },
-        { key: 'amountType', sortable: true },
-        { key: 'amount', sortable: true },
-        { key: 'nrOfGrids', sortable: true },
-        { key: 'ordersSide', sortable: true },
-        { key: 'incrementalPercent', sortable: true },
-        { key: 'delete', sortable: true },
-      ],
-      data:[]
-    },
+    // gridOrders:{
+    //   fields: [
+    //     { key: 'name', sortable: true },
+    //     { key: 'exchange', sortable: true },
+    //     { key: 'symbol', sortable: true },
+    //     { key: 'upperPrice', sortable: true },
+    //     { key: 'lowerPrice', sortable: true },
+    //     { key: 'amountType', sortable: true },
+    //     { key: 'amount', sortable: true },
+    //     { key: 'nrOfGrids', sortable: true },
+    //     { key: 'ordersSide', sortable: true },
+    //     { key: 'incrementalPercent', sortable: true },
+    //     { key: 'delete', sortable: true },
+    //     { key: 'DeviationPRICEBuy', sortable: true },
+    //     { key: 'DeviationPRICESell', sortable: true },
+    //     { key: 'DeviationAMOUNTBuy', sortable: true },
+    //     { key: 'DeviationAMOUNTSell', sortable: true },
+    //     { key: 'newgridregroup', sortable: true },
+    //     { key: 'oldgridregroup', sortable: true },
+    //     { key: 'regroupbalance', sortable: true },
+    //     { key: 'rsi', sortable: true },
+    //     { key: 'macd', sortable: true },
+    //     { key: 'priceregroup', sortable: true },
+    //     { key: 'fiblev', sortable: true },
+    //     { key: 'rangelowerPrice', sortable: true },
+    //     { key: 'rangeupperPrice', sortable: true },
+    //     { key: 'fibdowntrend', sortable: true },
+    //     { key: 'fibuptrend', sortable: true },
+    //     { key: 'DailyTrading1min', sortable: true },
+    //     { key: 'DailyTrading5min', sortable: true },
+    //     { key: 'DailyTrading15min', sortable: true },
+    //     { key: 'DailyTrading30min', sortable: true },
+    //     { key: 'Strategies1min', sortable: true },
+    //     { key: 'Strategies5min', sortable: true },
+    //     { key: 'Strategies15min', sortable: true },
+    //     { key: 'Strategies30min', sortable: true },          
+    //   ],     
+    //   data:[]      
+   // },
+
+
+   gridOrders: {
+  fields: [
+    { key: 'name', sortable: true },
+    { key: 'exchange', sortable: true },
+    { key: 'symbol', sortable: true },
+    { key: 'upperPrice', sortable: true },
+    { key: 'lowerPrice', sortable: true },
+    { key: 'amountType', sortable: true },
+    { key: 'amount', sortable: true },
+    { key: 'nrOfGrids', sortable: true },
+    { key: 'ordersSide', sortable: true },
+    { key: 'incrementalPercent', sortable: true },
+    { key: 'delete', sortable: true }
+  ],
+  data: [],
+  fieldSets: {
+    level1: [],
+    advancedMode: [],
+    dailyTrading: [],
+    strategies: []
+  }
+},
+
+
     dcaBots:{
       fields: [
         { key: 'show_details', sortable: true },
@@ -458,6 +386,97 @@ export default {
     });
   },
   methods:{
+    updateGridOrders() {
+    const name = this.gridName;
+    const exchange = this.exchange;
+    const symbol = this.market.symbol;
+    const lowerPrice = this.lowerPrice;
+    const upperPrice = this.upperPrice;
+    const amountType = this.amountType;
+    const amount = this.amount;
+    const nrOfGrids = this.nrOfGrids;
+    const ordersSide = this.ordersSide;
+    const incrementalPercent = this.incrementalPercent;
+    const tierCount = this.tierCount;
+    const fieldSetslevel1 = this.fieldSetslevel1;
+    const fieldSetsadvancedMode = this.fieldSetsadvancedMode;
+    const fieldSetsDailyTrading = this.fieldSetsDailyTrading;
+    const fieldSetsStrategies = this.fieldSetsStrategies;
+
+    const level1Fields = fieldSetslevel1.map(field => ({
+      ...field,
+      tierNumber: this.tierNumber,
+      DeviationPRICEBuy: this.DeviationPRICEBuy,
+      DeviationPRICESell: this.DeviationPRICESell,
+      DeviationAMOUNTBuy: this.DeviationAMOUNTBuy,
+      DeviationAMOUNTSell: this.DeviationAMOUNTSell,
+      fieldSetslevel1Data: this.fieldSetlevel1sData || []
+    }));
+
+    const advancedModeFields = fieldSetsadvancedMode.map(field => ({
+      ...field,
+      tierNumber2: this.tierNumber2,
+      newgridregroup: field.newgridregroup === null ? null : Number(field.newgridregroup),
+      oldgridregroup: field.oldgridregroup === null ? null : Number(field.oldgridregroup),
+      regroupbalance: field.regroupbalance === null ? null : Number(field.regroupbalance),
+      rsi: field.rsi === null ? null : Number(field.rsi),
+      macd: field.macd === null ? null : Number(field.macd),
+      priceregroup: field.priceregroup === null ? null : Number(field.priceregroup),
+      fiblev: field.fiblev === null ? null : Number(field.fiblev),
+      rangelowerPrice: field.rangelowerPrice === null ? null : Number(field.rangelowerPrice),
+      rangeupperPrice: field.rangeupperPrice === null ? null : Number(field.rangeupperPrice),
+      fibdowntrend: field.fibdowntrend === null ? null : Number(field.fibdowntrend),
+      fibuptrend: field.fibuptrend === null ? null : Number(field.fibuptrend),
+      fieldSetsadvancedModeData: field.fieldSetsadvancedModeData || []
+    }));
+
+    const dailyTradingFields = fieldSetsDailyTrading.map(field => ({
+      ...field,
+      tierNumber: this.tierNumber,
+      DailyTrading1min: this.DailyTrading1min,
+      DailyTrading5min: this.DailyTrading5min,
+      DailyTrading15min: this.DailyTrading15min,
+      DailyTrading30min: this.DailyTrading30min,
+      fieldSetsDailyTradingData: this.fieldSetsDailyTradingData || []
+    }));
+
+    const strategiesFields = fieldSetsStrategies.map(field => ({
+      ...field,
+      tierNumber: this.tierNumber,
+      Strategies1min: this.Strategies1min,
+      Strategies5min: this.Strategies5min,
+      Strategies15min: this.Strategies15min,
+      Strategies30min: this.Strategies30min,
+      fieldSetsStrategiesData: this.fieldSetsStrategiesData || []
+    }));
+
+    const newGridOrder = {
+      name,
+      exchange,
+      symbol,
+      lowerPrice,
+      upperPrice,
+      amountType,
+      amount,
+      nrOfGrids,
+      ordersSide,
+      incrementalPercent,
+      tierCount,
+      level1Fields,
+      advancedModeFields,
+      dailyTradingFields,
+      strategiesFields
+    };
+
+    this.gridOrders.data.push(newGridOrder);
+    this.gridOrders.fieldSets.level1.push(...level1Fields);
+    this.gridOrders.fieldSets.advancedMode.push(...advancedModeFields);
+    this.gridOrders.fieldSets.dailyTrading.push(...dailyTradingFields);
+    this.gridOrders.fieldSets.strategies.push(...strategiesFields);
+  },
+
+
+
     cancelOrder: async function(id){
       let data = {
         exchange:this.exchange,
