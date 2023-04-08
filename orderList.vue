@@ -1,7 +1,7 @@
 <template>
 
 <b-tabs content-class="mt-3" v-model="activeTab">
-   <b-tab title="Tools" active>
+   <b-tab title="Tools">
        <b-table>
 
       </b-table>
@@ -309,6 +309,7 @@ export default {
   }
 },
 activeTab: 0,
+      isStrategiesActive: false,
 
     dcaBots:{
       fields: [
@@ -398,8 +399,15 @@ activeTab: 0,
   methods:{
 
     addStrategies() {
-      this.activeTab = 4; // indexul tabului "Strategies"
-    },
+    this.Strategies = !this.Strategies;
+    this.activeTab = 7; // setează activeTab la 7
+    this.deactivateTabs(); // dezactivează toate celelalte tab-uri
+  },
+  deactivateTabs() {
+    this.tabs.forEach(tab => {
+      tab.active = false;
+    });
+  },
 
 
 
@@ -598,6 +606,8 @@ activeTab: 0,
 
   }
 }
+
+
 </script>
 
 <style scoped>
