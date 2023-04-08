@@ -60,15 +60,15 @@
 
 
     <div class="d-flex mb-3 justify-content-between">
-      <b-button @click="addNewField" variant="primary" class="mr-2" :class="{ 'shadow-sm': level1Clicked }">Level1</b-button>
-      <b-button @click="addRegroup" variant="primary" :class="{ 'shadow-sm': advancedModeClicked }">AdvancedMODE</b-button>  
+      <b-button @click="addlevel1" variant="primary" class="mr-2" :class="{ 'shadow-sm': level1Clicked }">Level1</b-button>
+      <b-button @click="addAdvancedMode" variant="primary" :class="{ 'shadow-sm': advancedModeClicked }">AdvancedMODE</b-button>  
       <b-button @click="addDailyTrading" variant="primary" :class="{ 'shadow-sm': DailyTrading }">DailyTrading</b-button>  
       <b-button @click="addStrategies" variant="primary" :class="{ 'shadow-sm': Strategies }">Strategies</b-button> 
     </div>
 
     <div class="d-flex mb-3 justify-content-between">
-      <b-button variant="danger" @click="removeField(index)" v-if="level1Clicked">Elimină</b-button>
-      <b-button variant="danger" @click="removeRegroup(index)" v-if="advancedModeClicked">Elimină</b-button>
+      <b-button variant="danger" @click="removeLevel1(index)" v-if="level1Clicked">Elimină</b-button>
+      <b-button variant="danger" @click="removeAdvancedMode(index)" v-if="advancedModeClicked">Elimină</b-button>
       <b-button variant="danger" @click="removeDailyTrading(index)" v-if="DailyTrading">Elimină</b-button>
       <b-button variant="danger" @click="removeStrategies(index)" v-if="Strategies">Elimină</b-button>
 
@@ -80,7 +80,7 @@
 
 
 
-      <div v-for="(set, index) in fieldSets" :key="set.id" v-if="level1Clicked">
+      <div v-for="(set, index) in fieldSetslevel1" :key="set.id" v-if="level1Clicked">
         <h4>Level1 {{ set.tierNumber }}</h4>
 
         <b-row>
@@ -118,8 +118,8 @@
         
       </div>
 
-      <div v-for="(set, index) in fieldSets2" :key="set.id" v-if="advancedModeClicked">
-          <h4>AdvancedMODE {{ set.tierNumber2 }}</h4>
+      <div v-for="(set, index) in fieldSetsadvancedMode" :key="set.id" v-if="advancedModeClicked">
+          <h4>AdvancedMODE {{ set.tierNumberadvancedModeClicked }}</h4>
           <b-row>
                <b-col cols="4">
                   <b-form-group>
@@ -204,7 +204,7 @@
 
 
         <div v-for="(set, index) in fieldSetsDailyTrading" :key="set.id" v-if="DailyTrading">
-        <h4>DailyTrading {{ set.tierNumber }}</h4>
+        <h4>DailyTrading {{ set.tierNumberDailyTrading }}</h4>
 
         <b-row>
           <b-col cols="6">
@@ -243,7 +243,7 @@
 
 
       <div v-for="(set, index) in fieldSetsStrategies" :key="set.id" v-if="Strategies">
-          <h4>Strategies {{ set.tierNumber }}</h4>
+          <h4>Strategies {{ set.tierNumberStrategies }}</h4>
   
           <b-row>
             <b-col cols="6">
@@ -307,22 +307,7 @@ export default {
       { value: 'totalAmount', text: 'Total Amount' },
       { value: 'incrementalPercent', text: 'Incremental Amount' },
      
-      // { value: 'deviationPRICEBuy', text: 'deviationPRICEBuy' },
-      // { value: 'deviationPRICESell', text: 'deviationPRICESell' },
-
-      // { value: 'regroup', text: 'regroup' },
-      // { value: 'regroup.oldgrid', text: 'regroup.oldgrid' },
-      // { value: 'regroup.newgrid', text: 'regroup.newgrid' },
-      // { value: 'regroup.balance', text: 'regroup.balance' },
-      // { value: 'regroup.RSI', text: 'regroup.RSI' },
-      // { value: 'regroup.MACD', text: 'regroup.MACD' },
-      // { value: 'regroup.PRICE', text: 'regroup.PRICE' },
-      // { value: 'regroup.fiblev', text: 'regroup.fiblev' },
-      // { value: 'regroup.rangepriceLower', text: 'regroup.rangepriceLower' },
-      // { value: 'regroup.rangepriceUpper', text: 'regroup.rangepriceUpper' },
-      // { value: 'regroup.fibdowntrend', text: 'regroup.fibdowntrend' },
-      // { value: 'regroup.fibuptrend', text: 'regroup.fibuptrend' },
-
+   
     ],
     ordersSideOptions:[
       { value: 'buyOrSell', text: 'Buy & Sell' },
@@ -348,40 +333,22 @@ export default {
       { value: 7, text: 'Tier 7' },
     ],
     tierCount: 1,
-    fieldSets: [
+    fieldSetslevel1: [
       {
-        tierNumber: 1,
+        tierNumber: 0,
         DeviationPRICEBuy: null,
         DeviationPRICESell: null,
         DeviationAMOUNTBuy: null,
         DeviationAMOUNTSell: null ,
+        showDeleteButton: true // adăugați această proprietate și setați-o la adevărat
         
       },
     ],
 
-    fieldSetsDailyTrading: [
-      {
-        tierNumber: 1,
-        DailyTrading1min: null,
-        DailyTrading5min: null,
-        DailyTrading15min: null,
-        DailyTrading30min: null ,
-        
-      },
-    ],
-    fieldSetsStrategies: [
-      {
-        tierNumber: 1,
-        Strategies1min: null,
-        Strategies5min: null,
-        Strategies5min: null,
-        Strategies30min: null ,
-        
-      },
-    ],
+   
 
-    fieldSets2: [
-      { tierNumber:  1, 
+    fieldSetsadvancedMode: [
+      { tierNumber:  0, 
         newgridregroup: '',
         oldgridregroup: '',
         regroupbalance: '',
@@ -393,6 +360,28 @@ export default {
         rangeupperPrice: '',
         fibdowntrend: '',
         fibuptrend: ''
+      },
+    ],
+
+
+    fieldSetsDailyTrading: [
+      {
+        tierNumber: 0,
+        DailyTrading1min: null,
+        DailyTrading5min: null,
+        DailyTrading15min: null,
+        DailyTrading30min: null ,
+        
+      },
+    ],
+    fieldSetsStrategies: [
+      {
+        tierNumber: 0,
+        Strategies1min: null,
+        Strategies5min: null,
+        Strategies5min: null,
+        Strategies30min: null ,
+        
       },
     ],
 
@@ -423,25 +412,24 @@ export default {
   ordersSide: this.ordersSide,
   incrementalPercent: this.incrementalPercent,
   tierCount: this.tierCount,
-  fieldSets: [],
-  fieldSets2: [],
+  fieldSetslevel1: [],
+  fieldSetsadvancedMode: [],
   fieldSetsDailyTrading: [],
-  fieldSetsStrategies: [],
+  fieldSetsStrategies: [],};
 
-  };
-
-  if (this.fieldSets && this.fieldSets.length > 1) {
-    data.fieldSets = this.fieldSets.map(field => ({
+  
+    data.fieldSetslevel1 = this.fieldSetslevel1.map(field => ({
+      ...field,
       tierNumber: this.tierNumber,
       DeviationPRICEBuy: this.DeviationPRICEBuy,
       DeviationPRICESell: this.DeviationPRICESell,
       DeviationAMOUNTBuy: this.DeviationAMOUNTBuy,
       DeviationAMOUNTSell: this.DeviationAMOUNTSell,
-      fieldSetsData: this.fieldSetsData || []
+      fieldSetslevel1Data: this.fieldSetlevel1sData || []
     }));
   
 
-    data.fieldSets2 = this.fieldSets2.map(field => ({
+    data.fieldSetsadvancedMode = this.fieldSetsadvancedMode.map(field => ({
     ...field,
     tierNumber2: this.tierNumber2,
     newgridregroup: field.newgridregroup === null ? null : Number(field.newgridregroup),
@@ -455,12 +443,33 @@ export default {
     rangeupperPrice: field.rangeupperPrice === null ? null : Number(field.rangeupperPrice),
     fibdowntrend: field.fibdowntrend === null ? null : Number(field.fibdowntrend),
     fibuptrend: field.fibuptrend === null ? null : Number(field.fibuptrend),
-    fieldSetsData2: field.fieldSetsData2 || []
+    fieldSetsadvancedModeData: field.fieldSetsadvancedModeData || []
+     }));
+
+     data.fieldSetsDailyTrading = this.fieldSetsDailyTrading.map(field => ({
+      ...field,
+      tierNumber: this.tierNumber,
+      DailyTrading1min: this.DailyTrading1min,
+      DailyTrading5min: this.DailyTrading5min,
+      DailyTrading15min: this.DailyTrading15min,
+      DailyTrading30min: this.DailyTrading30min,
+      fieldSetsDailyTradingData: this.fieldSetsDailyTradingData || []
+    }));
+
+    data.fieldSetsStrategies = this.fieldSetsStrategies.map(field => ({
+      ...field,
+      tierNumber: this.tierNumber,
+      Strategies1min: this.Strategies1min,
+      Strategies5min: this.Strategies5min,
+      Strategies15min: this.Strategies15min,
+      Strategies30min: this.Strategies30min,
+      fieldSetsStrategiesData: this.fieldSetsStrategiesData || []
+    }));
 
 
 
 
-  }))};
+
 
   let response = await this.$http.$post('/create-grid-orders', { data });
 
@@ -570,13 +579,13 @@ export default {
       }
     },
 
-    addNewField: function() {
+    addlevel1: function() {
   if (!this.level1Clicked) {
-    this.level1Clicked = true;
+    this.level1Clicked = {};
   }
-  if (this.fieldSets.length < 7) {
-    this.fieldSets.push({ 
-      tierNumber: this.fieldSets.length,
+  if (this.fieldSetslevel1.length < 1) {
+    this.fieldSetslevel1.push({ 
+      tierNumber: this.fieldSetslevel1.length,
       DeviationPRICEBuy: '',
       DeviationPRICESell: '',
       DeviationAMOUNTBuy: '',
@@ -589,11 +598,11 @@ export default {
 
 addDailyTrading: function() {
   if (!this.DailyTrading) {
-    this.DailyTrading = true;
+    this.DailyTrading = {};
   }
   if (this.fieldSetsDailyTrading.length < 1) {
     this.fieldSetsDailyTrading.push({ 
-      tierNumber: this.fieldSetsDailyTrading.length + 1,
+      tierNumberDailyTrading: this.fieldSetsDailyTrading.length + 1,
       DailyTrading1min: '',
       DailyTrading5min: '',
       DailyTrading15min: '',
@@ -604,11 +613,11 @@ addDailyTrading: function() {
 },
 addStrategies: function() {
   if (!this.Strategies) {
-    this.Strategies = true;
+    this.Strategies = {};
   }
-  if (this.fieldSetsStrategies.length < 7) {
+  if (this.fieldSetsStrategies.length < 1) {
     this.fieldSetsStrategies.push({ 
-      tierNumber: this.fieldSetsStrategies.length + 1,
+      tierNumberSetsStrategies: this.fieldSetsStrategies.length + 1,
       Strategies1min: '',
       Strategies5min: '',
       Strategies15min: '',
@@ -620,13 +629,13 @@ addStrategies: function() {
 
 
 
-addRegroup: function() {
+addAdvancedMode: function() {
   if (!this.advancedModeClicked) {
-    this.advancedModeClicked = true;
+    this.advancedModeClicked = {};
   }
-  if (this.fieldSets2.length < 7) {
-  this.fieldSets2.push({
-    tierNumber2: this.fieldSets2.length + 1,
+  if (this.fieldSetsadvancedMode.length < 1) {
+  this.fieldSetsadvancedMode.push({
+    tierNumber2: this.fieldSetsadvancedMode.length + 1,
     newgridregroup: null,
     regroupbalance: null,
     rsi: null,
@@ -644,12 +653,12 @@ addRegroup: function() {
 
 
 
-    removeField(index) {
-    this.fieldSets.splice(index, 1);
+    removeLevel1(index) {
+    this.fieldSetslevel1.splice(index, 1);
    },
   
-    removeRegroup(index) {
-    this.fieldSets2.splice(index, 1);
+    removeAdvancedMode(index) {
+    this.fieldSetsadvancedMode.splice(index, 1);
    },
    removeDailyTrading(index) {
     this.fieldSetsDailyTrading.splice(index, 1);
@@ -660,6 +669,13 @@ addRegroup: function() {
    },
 
 
+   deleteField: function(index) {
+  this.fieldSets.splice(index, 1);
+  this.fieldSets.forEach((fieldSet, i) => {
+    fieldSet.tierNumber = i;
+  });
+  this.fieldSets[index].showDeleteButton = false; // setați showDeleteButton la fals pentru obiectul eliminat
+},
 
  
 
@@ -667,7 +683,28 @@ addRegroup: function() {
 
     setTierNumber: function(index, value){
       this.fieldSets[index].tierNumber = value;
+    },
+
+
+    setTierNumber: function(index, value){
+      this.fieldSets[index].tierNumber = value;
+    },
+
+
+    setTierNumberAdvancedMODE: function(index, value){
+      this.fieldSets[index].tierNumber = value;
+    },
+
+
+    setTierNumberStrategies: function(index, value){
+      this.fieldSetsAdvance [index].tierNumberStrategies = value;
     }
+
+
+
+
+
+
 
 
 
