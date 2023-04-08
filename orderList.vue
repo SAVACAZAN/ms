@@ -1,6 +1,6 @@
 <template>
 
-  <b-tabs content-class="mt-3">
+<b-tabs content-class="mt-3" v-model="activeTab">
    <b-tab title="Tools" active>
        <b-table>
 
@@ -139,8 +139,14 @@
   <b-tab title="DailyTrading">
 </b-tab>
 
-<b-tab title="Strategies">
+
+
+    
+<b-tab title="Strategies" :active="isStrategiesActive">
+  <!-- conținutul tab-ului Strategies -->
 </b-tab>
+  
+ 
 
 
 
@@ -207,6 +213,7 @@
 import Vue from "vue";
 
 export default {
+
   name: "orderList",
   data: () => ({
     openOrders:{
@@ -236,6 +243,8 @@ export default {
       ],
       data:[]
     },
+
+    
     // gridOrders:{
     //   fields: [
     //     { key: 'name', sortable: true },
@@ -299,7 +308,7 @@ export default {
     strategies: []
   }
 },
-
+activeTab: 0,
 
     dcaBots:{
       fields: [
@@ -385,7 +394,15 @@ export default {
       this.dcaBots.data = ordersList.dcaBots;
     });
   },
+ 
   methods:{
+
+    addStrategies() {
+      this.activeTab = 4; // indexul tabului "Strategies"
+    },
+
+
+
     updateGridOrders() {
     const name = this.gridName;
     const exchange = this.exchange;
@@ -573,6 +590,10 @@ export default {
       })
     },
   },
+
+  
+
+
   mounted: async function() {
 
   }
