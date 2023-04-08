@@ -63,95 +63,20 @@
       <b-button @click="addNewField" variant="primary" class="mr-2" :class="{ 'shadow-sm': level1Clicked }">Level1</b-button>
       <b-button @click="addRegroup" variant="primary" :class="{ 'shadow-sm': advancedModeClicked }">AdvancedMODE</b-button>  
       <b-button @click="addDailyTrading" variant="primary" :class="{ 'shadow-sm': DailyTrading }">DailyTrading</b-button>  
-      <b-button @click="Strategies" variant="primary" :class="{ 'shadow-sm': Strategies }">Strategies</b-button> 
+      <b-button @click="addStrategies" variant="primary" :class="{ 'shadow-sm': Strategies }">Strategies</b-button> 
     </div>
 
     <div class="d-flex mb-3 justify-content-between">
       <b-button variant="danger" @click="removeField(index)" v-if="level1Clicked">Elimină</b-button>
       <b-button variant="danger" @click="removeRegroup(index)" v-if="advancedModeClicked">Elimină</b-button>
+      <b-button variant="danger" @click="removeDailyTrading(index)" v-if="DailyTrading">Elimină</b-button>
+      <b-button variant="danger" @click="removeStrategies(index)" v-if="Strategies">Elimină</b-button>
     </div>
 
 
-    <div v-for="(set, index) in fieldSetsDailyTrading" :key="set.id" v-if="DailyTrading">
-        <h4>DailyTrading {{ set.tierNumber }}</h4>
+ 
 
-        <b-row>
-          <b-col cols="6">
-            <b-form-group>
-              <b-input-group append="">
-                <b-form-input type="number" v-model="set.DailyTrading1min" placeholder="DailyTrading 1 min" step="any"></b-form-input>
-              </b-input-group>
-            </b-form-group>
-          </b-col>
-          <b-col cols="6">
-            <b-form-group>
-              <b-input-group append="">
-                <b-form-input type="number" v-model="set.DailyTrading5min" placeholder="DailyTrading 5 min" step="any"></b-form-input>
-              </b-input-group>
-            </b-form-group>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col cols="6">
-            <b-form-group>
-              <b-input-group append="">
-                <b-form-input type="number" v-model="set.DailyTrading15min" placeholder="DailyTrading 15 min" step="any"></b-form-input>
-              </b-input-group>
-            </b-form-group>
-          </b-col>
-          <b-col cols="6">
-            <b-form-group>
-              <b-input-group append="">
-                <b-form-input type="number" v-model="set.DailyTrading30min" placeholder="DailyTrading 30 min" step="any"></b-form-input>
-              </b-input-group>
-            </b-form-group>
-          </b-col>
-        </b-row>
-        
-      </div>
-
-
-      <div v-for="(set, index) in Strategies" :key="set.id" v-if="Strategies">
-        <h4>Strategies {{ set.tierNumber }}</h4>
-
-        <b-row>
-          <b-col cols="6">
-            <b-form-group>
-              <b-input-group append="">
-                <b-form-input type="number" v-model="set.Strategies" placeholder="Strategies1 min" step="any"></b-form-input>
-              </b-input-group>
-            </b-form-group>
-          </b-col>
-          <b-col cols="6">
-            <b-form-group>
-              <b-input-group append="">
-                <b-form-input type="number" v-model="set.Strategies" placeholder="Strategies5 min" step="any"></b-form-input>
-              </b-input-group>
-            </b-form-group>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col cols="6">
-            <b-form-group>
-              <b-input-group append="">
-                <b-form-input type="number" v-model="set.Strategies" placeholder="Strategies15 min" step="any"></b-form-input>
-              </b-input-group>
-            </b-form-group>
-          </b-col>
-          <b-col cols="6">
-            <b-form-group>
-              <b-input-group append="">
-                <b-form-input type="number" v-model="set.Strategies" placeholder="Strategies30 min" step="any"></b-form-input>
-              </b-input-group>
-            </b-form-group>
-          </b-col>
-        </b-row>
-        
-      </div>
-
-
-
-      <div v-for="(set, index) in fieldSets" :key="set.id" v-if="level1Clicked">
+      <div v-for="(set, index) in fieldSetsLevel1" :key="set.id" v-if="level1Clicked">
         <h4>Level1 {{ set.tierNumber }}</h4>
 
         <b-row>
@@ -189,7 +114,7 @@
         
       </div>
 
-      <div v-for="(set, index) in fieldSets2" :key="set.id" v-if="advancedModeClicked">
+      <div v-for="(set, index) in fieldSetsadvancedMode" :key="set.id" v-if="advancedModeClicked">
           <h4>AdvancedMODE {{ set.tierNumber2 }}</h4>
           <b-row>
                <b-col cols="4">
@@ -272,6 +197,87 @@
                </b-col>
            </b-row>    
         </div>     
+
+        <div v-for="(set, index) in fieldSetsDailyTrading" :key="set.id" v-if="DailyTrading">
+        <h4>DailyTrading {{ set.tierNumber }}</h4>
+
+        <b-row>
+          <b-col cols="6">
+            <b-form-group>
+              <b-input-group append="">
+                <b-form-input type="number" v-model="set.DailyTrading1min" placeholder="DailyTrading 1 min" step="any"></b-form-input>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+          <b-col cols="6">
+            <b-form-group>
+              <b-input-group append="">
+                <b-form-input type="number" v-model="set.DailyTrading5min" placeholder="DailyTrading 5 min" step="any"></b-form-input>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col cols="6">
+            <b-form-group>
+              <b-input-group append="">
+                <b-form-input type="number" v-model="set.DailyTrading15min" placeholder="DailyTrading 15 min" step="any"></b-form-input>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+          <b-col cols="6">
+            <b-form-group>
+              <b-input-group append="">
+                <b-form-input type="number" v-model="set.DailyTrading30min" placeholder="DailyTrading 30 min" step="any"></b-form-input>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        
+      </div>
+
+
+      <div v-for="(set, index) in fieldSetsStrategies" :key="set.id" v-if="Strategies">
+        <h4>Strategies {{ set.tierNumber }}</h4>
+
+        <b-row>
+          <b-col cols="6">
+            <b-form-group>
+              <b-input-group append="">
+                <b-form-input type="number" v-model="set.Strategies" placeholder="Strategies1 min" step="any"></b-form-input>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+          <b-col cols="6">
+            <b-form-group>
+              <b-input-group append="">
+                <b-form-input type="number" v-model="set.Strategies" placeholder="Strategies5 min" step="any"></b-form-input>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col cols="6">
+            <b-form-group>
+              <b-input-group append="">
+                <b-form-input type="number" v-model="set.Strategies" placeholder="Strategies15 min" step="any"></b-form-input>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+          <b-col cols="6">
+            <b-form-group>
+              <b-input-group append="">
+                <b-form-input type="number" v-model="set.Strategies" placeholder="Strategies30 min" step="any"></b-form-input>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        
+      </div>
+
+
+
+
         
                   <b-button block type="submit" variant="primary">Create Grid</b-button>
                   <div class="balance text-right mb-2">
@@ -338,7 +344,7 @@ export default {
       { value: 7, text: 'Tier 7' },
     ],
     tierCount: 1,
-    fieldSets: [
+    fieldSetsLevel1: [
       {
         tierNumber: 1,
         DeviationPRICEBuy: null,
@@ -359,7 +365,7 @@ export default {
         
       },
     ],
-    Strategies: [
+    fieldSetsStrategies: [
       {
         tierNumber: 1,
         Strategies1min: null,
@@ -373,10 +379,10 @@ export default {
 
 
     level1Clicked: false, // Add this line
-    advancedModeClicked: false,
-    DailyTrading: false,
-
-    fieldSets2: [
+    advancedModeClicked: false,// Add this line
+    DailyTrading: false,// Add this line
+    Strategies: false,// Add this line
+    fieldSetsadvancedMode: [
       { tierNumber2:  1, 
         newgridregroup: '',
         oldgridregroup: '',
@@ -421,25 +427,25 @@ export default {
   ordersSide: this.ordersSide,
   incrementalPercent: this.incrementalPercent,
   tierCount: this.tierCount,
-  fieldSets: [],
-  fieldSets2: [],
+  fieldSetsLevel1: [],
+  fieldSetsadvancedMode: [],
   fieldSetsDailyTrading: [],
-  Strategies: [],
+  fieldSetsStrategies: [],
 
   };
 
-  if (this.fieldSets && this.fieldSets.length > 0) {
-    data.fieldSets = this.fieldSets.map(field => ({
+  if (this.fieldSetsLevel1 && this.fieldSetsLevel1.length > 0) {
+    data.fieldSetsLevel1 = this.fieldSetsLevel1.map(field => ({
       tierNumber: this.tierNumber,
       DeviationPRICEBuy: this.DeviationPRICEBuy,
       DeviationPRICESell: this.DeviationPRICESell,
       DeviationAMOUNTBuy: this.DeviationAMOUNTBuy,
       DeviationAMOUNTSell: this.DeviationAMOUNTSell,
-      fieldSetsData: this.fieldSetsData || []
+      fieldSetsLevel1Data: this.fieldSetsLevel1Data || []
     }));
   
 
-    data.fieldSets2 = this.fieldSets2.map(field => ({
+    data.fieldSetsadvancedMode = this.fieldSetsadvancedMode.map(field => ({
     ...field,
     tierNumber2: this.tierNumber2,
     newgridregroup: field.newgridregroup === null ? null : Number(field.newgridregroup),
@@ -453,7 +459,7 @@ export default {
     rangeupperPrice: field.rangeupperPrice === null ? null : Number(field.rangeupperPrice),
     fibdowntrend: field.fibdowntrend === null ? null : Number(field.fibdowntrend),
     fibuptrend: field.fibuptrend === null ? null : Number(field.fibuptrend),
-    fieldSetsData2: field.fieldSetsData2 || []
+    fieldSetsadvancedMode: field.fieldSetsadvancedMode || []
 
 
 
@@ -554,27 +560,27 @@ export default {
     },
     setTier2: function(index, type, val){
       if(type === 'old'){
-        this.fieldSets2[index].oldgridregroup = val;
+        this.fieldSetsadvancedMode[index].oldgridregroup = val;
       } else if(type === 'new'){
-        this.fieldSets2[index].newgridregroup = val;
+        this.fieldSetsadvancedMode[index].newgridregroup = val;
       } else if(type === 'balance'){
-        this.fieldSets2[index].regroupbalance = val;
+        this.fieldSetsadvancedMode[index].regroupbalance = val;
       } else if(type === 'RSI'){
-        this.fieldSets2[index].rsi = val;
+        this.fieldSetsadvancedMode[index].rsi = val;
       } else if(type === 'MACD'){
-        this.fieldSets2[index].macd = val;
+        this.fieldSetsadvancedMode[index].macd = val;
       } else if(type === 'price'){
-        this.fieldSets2[index].priceregroup = val;
+        this.fieldSetsadvancedMode[index].priceregroup = val;
       } else if(type === 'fiblevel'){
-        this.fieldSets2[index].fiblevel = val;
+        this.fieldSetsadvancedMode[index].fiblevel = val;
       } else if(type === 'lowerPrice'){
-        this.fieldSets2[index].rangelowerPrice = val;
+        this.fieldSetsadvancedMode[index].rangelowerPrice = val;
       } else if(type === 'upperPrice'){
-        this.fieldSets2[index].rangeupperPrice = val;
+        this.fieldSetsadvancedMode[index].rangeupperPrice = val;
       } else if(type === 'fibdowntrend'){
-        this.fieldSets2[index].fibdowntrend = val;
+        this.fieldSetsadvancedMode[index].fibdowntrend = val;
       } else if(type === 'fibuptrend'){
-        this.fieldSets2[index].fibuptrend = val;
+        this.fieldSetsadvancedMode[index].fibuptrend = val;
       }
     },
 
@@ -599,9 +605,9 @@ addDailyTrading: function() {
   if (!this.DailyTrading) {
     this.DailyTrading = true;
   }
-  if (this.fieldSets.length < 1) {
-    this.fieldSets.push({ 
-      tierNumber: this.fieldSets.length + 1,
+  if (this.fieldSetsDailyTrading.length < 1) {
+    this.fieldSetsDailyTrading.push({ 
+      tierNumber: this.fieldSetsDailyTrading.length + 1,
       DeviationPRICEBuy: '',
       DeviationPRICESell: '',
       DeviationAMOUNTBuy: '',
@@ -610,13 +616,13 @@ addDailyTrading: function() {
     });
   }
 },
-Strategies: function() {
+addStrategies: function() {
   if (!this.Strategies) {
     this.Strategies = true;
   }
   if (this.fieldSetsStrategies.length < 7) {
-    this.fieldSets.push({ 
-      tierNumber: this.fieldSets.length + 1,
+    this.fieldSetsStrategies.push({ 
+      tierNumber: this.fieldSetsStrategies.length + 1,
       DeviationPRICEBuy: '',
       DeviationPRICESell: '',
       DeviationAMOUNTBuy: '',
@@ -632,9 +638,9 @@ addRegroup: function() {
   if (!this.advancedModeClicked) {
     this.advancedModeClicked = true;
   }
-  if (this.fieldSets2.length < 7) {
-  this.fieldSets2.push({
-    tierNumber2: this.fieldSets2.length + 1,
+  if (this.fieldSetsadvancedMode.length < 7) {
+  this.fieldSetsadvancedMode.push({
+    tierNumber2: this.fieldSetsadvancedMode.length + 1,
     newgridregroup: null,
     regroupbalance: null,
     rsi: null,
@@ -653,14 +659,26 @@ addRegroup: function() {
 
 
     removeField(index) {
-    this.fieldSets.splice(index, 1);
+    this.fieldSetsLevel1.splice(index, 1);
    },
   
     removeRegroup(index) {
-    this.fieldSets2.splice(index, 1);
+    this.fieldSetsadvancedMode.splice(index, 1);
    },
+
+
+   removeDailyTrading(index) {
+    this.fieldSetsDailyTrading.splice(index, 1);
+   },
+  
+    removeStrategies(index) {
+    this.fieldSetsStrategies.splice(index, 1);
+   },
+
+
+
     setTierNumber: function(index, value){
-      this.fieldSets[index].tierNumber = value;
+      this.fieldSetsLevel1[index].tierNumber = value;
     }
   },
 }
